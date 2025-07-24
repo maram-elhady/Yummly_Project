@@ -10,6 +10,7 @@ namespace Yummly.Services
         Task<Response<AddCommentDto>> AddCommentAsync(AddCommentDto commentDto);
         Task<Response<string>> EditCommentAsync(EditCommentDto commentDto);
         Task<Response<bool>> DeleteCommentAsync(DeleteCommentDto commentDto);
-        
+        Task<Response<PostLikeUsersListDto>> PostLikesAsync(int postId);
+
     }
 }

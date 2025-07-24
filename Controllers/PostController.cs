@@ -21,8 +21,9 @@ namespace Yummly.Controllers
         [HttpGet("categorylist")]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
             var category = await _context.Categories
-                                              .Select(c => new CategoryDto { Id=c.Id,Name=c.Name,photo=c.Photo})
+                                              .Select(c => new CategoryDto { Id=c.Id,Name=c.Name,photo= baseUrl + c.Photo})
                                               .ToListAsync();
             return StatusCode(200,category);
         }

@@ -39,6 +39,7 @@ namespace MyRecipeApp
             builder.Services.AddScoped<IPostService, PostService>();//
             builder.Services.AddScoped<IActivityService, ActivityService>();//
             builder.Services.AddScoped<IFollowService, FollowService>();
+            builder.Services.AddScoped<ISearchService, SearchService>();
 
             //  builder.Services.AddSingleton(sp => sp.GetRequiredService<IWebHostEnvironment>()); //
             builder.Services.AddAutoMapper(typeof(Program));

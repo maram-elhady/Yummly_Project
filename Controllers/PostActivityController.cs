@@ -72,7 +72,20 @@ namespace Yummly.Controllers
             return StatusCode(200, new { result.Message });
         }
 
-       
-        
+        [HttpGet("userslist/likes/comments/{postId}")]
+        public async Task<IActionResult> Postlikes([FromRoute] int postId)
+        {
+            
+            var result = await _activityservice.PostLikesAsync(postId);
+
+            if (!result.Success)
+                return NotFound(new { result.Message });
+
+            return StatusCode(200, new { result.Message ,result.Data });
+        }
+
+
+
+
     }
 }

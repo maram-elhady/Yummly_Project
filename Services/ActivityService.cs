@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using MyRecipeApp.Models;
 using System.ComponentModel.Design;
 using Yummly.DTO.Activities;
+using Yummly.DTO.Follow;
 using Yummly.DTO.Like;
-using Yummly.DTO.Post;
 using Yummly.Helper;
 using Yummly.Models.DbModels;
 
@@ -107,7 +107,55 @@ namespace Yummly.Services
             return new Response<bool> { Success = true, Message = "Comment deleted successfully", Data = true };
         }
 
-       
+        public async Task<Response<PostLikeUsersListDto>> PostLikesAsync(int postId)
+        {
+            var postExists = await _context.Posts.AnyAsync(p => p.Id == postId);
+
+            if (!postExists)
+            {
+                return new Response<PostLikeUsersListDto>
+                {
+                    Success = false,
+                    Message = "Post not found",
+                    Data = null
+                };
+            }
+
+            var likeList = await _context.PostLikes
+                .Where(p => p.PostId == postId)
+                .Include(p => p.User)
+                .Select(p => new PostLikeUsersListDto.LikesDto
+                {
+                    UserId = p.User.Id.ToString()
+                })
+                .ToListAsync();
+
+            var commentList = await _context.PostComments
+                .Where(c => c.PostId == postId)
+                .Include(c => c.User)
+                .Select(c => new PostLikeUsersListDto.CommentsDto
+                {
+                    UserId = c.User.Id.ToString(),
+                    Content = c.Body
+                })
+                .ToListAsync();
+
+            var responseDto = new PostLikeUsersListDto
+            {
+                LikeList = likeList,
+                CommentList = commentList
+            };
+
+            return new Response<PostLikeUsersListDto>
+            {
+                Success = true,
+                Message = "Likes and comments retrieved successfully",
+                Data = responseDto
+            };
+        }
+
+
+
 
 
     }
