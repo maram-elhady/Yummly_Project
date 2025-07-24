@@ -158,7 +158,7 @@ namespace Yummly.Services
             return new Response<SearchCategoryResponseDto>
             {
                 Success = true,
-                Message = "Posts retrieved successfully",
+                Message = "Posts retrieved successfully" ,
                 Data = responseData
             };
         }

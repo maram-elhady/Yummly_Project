@@ -60,7 +60,7 @@ namespace Yummly.Controllers
             var result = await _followservice.GetFollowersAndFollowingNumberAsync(userId);
 
             if (!result.Success)
-                return BadRequest(new { result });
+                 return BadRequest(new { result });
 
             return StatusCode(200, new { result });
         }

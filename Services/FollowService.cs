@@ -123,7 +123,7 @@ namespace Yummly.Services
             return new Response<FollowNumbersDto>
             {
                 Success = true,
-                Message = "Following list retrieved successfully",
+                Message = "Following list retrieved successfully" ,
                 Data = followNumbers
             };
         }

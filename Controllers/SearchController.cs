@@ -39,7 +39,7 @@ namespace Yummly.Controllers
 
         //    return StatusCode(200, new {  });
         //}
-        [HttpGet("search-categories")]
+        [HttpGet("search-categories") ]
         public async Task<IActionResult> Searchrecipes(int id, int page = 1, int pageSize = 10)
         {
             if (!ModelState.IsValid)
